@@ -9,7 +9,7 @@ There is not one central repository for concerts in Louisville - music lovers in
 - clone this repo
 - `cd` into the project directory
 - run `npm install`
-- run `npm start`
+- run `npm start` or `npm run docker`
 - open your browser to `localhost:8080`
 
 
