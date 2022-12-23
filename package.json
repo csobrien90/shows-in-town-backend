@@ -1,0 +1,15 @@
+{
+  "name": "shows-in-town-backend",
+  "description": "Node backend for Shows In Town web application",
+  "author": "Chad O'Brien",
+  "type": "module",
+  "version": "1.0.0",
+  "dependencies": {
+    "fastify": "^4.10.2",
+    "puppeteer": "^19.4.1"
+  },
+  "scripts": {
+	"start": "node src/index.js",
+	"docker": "docker build . -t shows-in-town-backend && docker run -d -p 8080:8080 shows-in-town-backend"
+  }
+}
