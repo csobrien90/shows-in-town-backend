@@ -1,23 +1,19 @@
-import { fastify } from 'fastify'
+import { writeFileSync } from 'fs'
+import { resolve, join } from 'path'
 import { getEvents } from './getEvents.js'
 
-const api = fastify()
-
-async function startApi() {
+async function saveEvents() {
 	try {
-		api.get('/', {}, async (request, reply) => {
-			const events = await getEvents()
-			reply.header("Access-Control-Allow-Origin", "*")
-			reply.header("Access-Control-Allow-Methods", "GET")
-			reply.header("Access-Control-Allow-Headers",  "*")
-			reply.send(JSON.stringify(events))
-		})
+		const events = await getEvents()
+		const eventsJSON = JSON.stringify(events)
+		
+		// define __dirname to be the current directory and write events.json
+		const __dirname = resolve()
+		writeFileSync(join(__dirname, 'data', 'events.json'), eventsJSON)
 
-		await api.listen({host: '0.0.0.0', port: 8080})
-		console.log('Server listening at port: 8080')
 	} catch (e) {
 		console.error(e)
 	}
 }
 
-startApi()
+saveEvents()
