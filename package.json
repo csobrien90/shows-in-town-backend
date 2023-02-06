@@ -3,13 +3,12 @@
   "description": "Node backend for Shows In Town web application",
   "author": "Chad O'Brien",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.264.0",
     "puppeteer": "^19.4.1"
   },
   "scripts": {
-    "start": "node src/index.js",
-    "docker": "docker build . -t shows-in-town-events-fetch && docker run -d -P shows-in-town-events-fetch"
+    "start": "node src/index.js"
   }
 }

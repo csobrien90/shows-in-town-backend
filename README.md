@@ -8,9 +8,10 @@ There is not one central repository for concerts in Louisville - music lovers in
 
 - clone this repo
 - `cd` into the project directory
-- run `npm install`
-- run `npm start` or `npm run docker`
-- open your browser to `localhost:8080`
+- `npm install`
+- `npm start`
+
+**Note: unless you have the proper credentials, you will not be able to save to S3...nor should you while devving on this 😜 If this is a problem, please create an issue and we can set up a more publically available s3 bucket for dev purposes.**
 
 
 ## How to contribute
