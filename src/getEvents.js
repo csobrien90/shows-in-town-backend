@@ -13,7 +13,8 @@ import { scrapeKFCYumCenter } from "./scrapers/KFCYumCenter.js"
 import { scrapeFifteenTwelve } from "./scrapers/FifteenTwelve.js"
 
 export async function getEvents() {
-	const [headliners,
+	const [
+		headliners,
 		jazzSociety,
 		blackJockeysLounge,
 		stevieRays,
@@ -59,7 +60,8 @@ export async function getEvents() {
 	].filter(event => {
 		return (
 			event.address.includes('Louisville') &&
-			event.epoch > Date.now()
+			event.epoch > Date.now() &&
+			event.venue
 		)
 	})
 }

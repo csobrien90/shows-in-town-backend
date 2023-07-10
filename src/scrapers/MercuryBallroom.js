@@ -3,7 +3,14 @@ import { unEscapeWordPressHTML } from "../utilities.js";
 export async function scrapeMercuryBallroom() {
 	// Get eventData from Mercury Ballroom API
 	const mercuryBallroomUrl = 'https://do502.com/venues/mercury-ballroom?format=json'
-	const eventData = await fetch(mercuryBallroomUrl).then(res => res.json())
+	const eventData = await fetch(mercuryBallroomUrl).then(res => {
+		try {
+			return res.json()
+		} catch (e) {
+			console.error(e)
+			return
+		}
+	})
 
 	// Iterate over elements and populate events array
 	let events = [];

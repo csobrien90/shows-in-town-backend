@@ -11,6 +11,8 @@ export async function scrapeIroqouisAmphitheater() {
 			const event = e.events[0]
 			const { title, description, permalink, tz_adjusted_begin_date } = event
 
+			if (title.includes('Free Movie Night')) continue
+
 			// Define epoch and time
 			const epoch = Date.parse(new Date(tz_adjusted_begin_date))
 			const dateStringOptions = { weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute:'2-digit' }
