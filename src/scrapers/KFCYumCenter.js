@@ -21,18 +21,28 @@ export async function scrapeKFCYumCenter() {
 			const time = new Date(epoch).toLocaleDateString('en-us', dateStringOptions)
 
 			// Define doors time string
-			const doorsDate = new Date(doorsTimes.dateTime).toLocaleTimeString('en-us', {hour: 'numeric', minute:'2-digit'})
-			const doorsAt = doorsDate ? `Doors at ${doorsDate}` : ''
+			let doorsAt
+			if (doorsTimes !== undefined) {
+				const doorsDate = new Date(doorsTimes.dateTime).toLocaleTimeString('en-us', {hour: 'numeric', minute:'2-digit'})
+				doorsAt = doorsDate ? `Doors at ${doorsDate}` : ''
+			} else {
+				doorsAt = null
+			}
 
 			// Define ticket cost string
-			const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: priceRanges[0].currency })
-			const ticketCost = `Tickets: ${formatter.format(priceRanges[0].min)} - ${formatter.format(priceRanges[0].max)}`
+			let ticketCost
+			if (priceRanges !== undefined) {
+				const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: priceRanges[0].currency })
+				ticketCost = `Tickets: ${formatter.format(priceRanges[0].min)} - ${formatter.format(priceRanges[0].max)}`
+			} else {
+				ticketCost = null
+			}
 
 			// Build description
-			const desc = [
-				doorsAt,
-				ticketCost
-			].join(' - ')
+			let descArr = []
+			ticketCost ? descArr.push(ticketCost) : null
+			doorsAt ? descArr.push(doorsAt) : null			
+			const desc = descArr.length > 0 ? descArr.join(' - ') : ''
 
 			// Push to events array
 			events.push({

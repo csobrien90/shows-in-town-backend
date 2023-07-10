@@ -19,13 +19,27 @@ export async function scrapeLouisvilleOrchestra() {
 			// Prepare venue
 			const address = `${venue.address}, ${venue.city}, ${venue.state ? venue.state : 'KY'} ${venue.zip}`
 	
-			// Tidy up data and push to events array
+			// Tidy up data
+			let tidyTitle
+			let tidyDescription
+			let tidyVenue
+			let tidyAddress
+			try {
+				tidyTitle = unEscapeWordPressHTML(title)
+				tidyDescription = unEscapeWordPressHTML(description)
+				tidyVenue = unEscapeWordPressHTML(venue.venue)
+				tidyAddress = unEscapeWordPressHTML(address)
+			} catch (e) {
+				return
+			}
+
+			// Push to events array
 			events.push({
-				title: unEscapeWordPressHTML(title),
-				venue: unEscapeWordPressHTML(venue.venue),
-				address: unEscapeWordPressHTML(address),
+				title: tidyTitle,
+				venue: tidyVenue.venue,
+				address: tidyAddress,
 				time: startTime,
-				desc: unEscapeWordPressHTML(description),
+				desc: tidyDescription,
 				link: url,
 				epoch
 			});

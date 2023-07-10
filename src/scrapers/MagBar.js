@@ -37,11 +37,21 @@ export async function scrapeMagBar() {
 			if (title.length === 0 || details.length === 0 || link.length === 0) continue
 
 			// Put ticket cost in description
-			const splitDetails = details.split('-')
-			const desc = `Ticket cost: ${splitDetails[1].trim()}`
+			let desc = ''
+			let detailsArr = []
+			const newDetails = details.replace(/[\u2010-\u2015]/g, '-')
+			if (newDetails.includes('-')) {
+				detailsArr = newDetails.split('-')
+				desc = `Ticket cost: ${detailsArr[1].trim()}`
+			} else {
+				continue
+			}
+
+			// If detailsArr has more than 3 elements, it's a date range and we can't handle that yet
+			if (detailsArr.length > 3) continue
 
 			// Convert string into parsable date
-			const dateArr = splitDetails[0].replace('AT ', '').trim().split(' ')
+			const dateArr = detailsArr[0].replace('AT ', '').trim().split(' ')
 			if (dateArr[dateArr.length-2].length < 3) dateArr[dateArr.length-2] += ':00'
 
 			// Define epoch and time

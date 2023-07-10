@@ -56,5 +56,10 @@ export async function getEvents() {
 		...louisvillePalace,
 		...kfcYumCenter,
 		...fifteenTwelve
-	]
+	].filter(event => {
+		return (
+			event.address.includes('Louisville') &&
+			event.epoch > Date.now()
+		)
+	})
 }

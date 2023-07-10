@@ -1,4 +1,5 @@
 const unEscapeWordPressHTML = (text) => {
+	if (!text) return ''
 	return text
 		.replace(/(<([^>]+)>)/gi, ' ')
 		.replaceAll(`\n`, ' ')
